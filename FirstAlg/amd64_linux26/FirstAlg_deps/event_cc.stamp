@@ -1,0 +1,1 @@
+event_cc_dependencies =  ../src/event.cc  $(bin)FirstAlg_deps/event_cc.stamp

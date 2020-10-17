@@ -1,0 +1,21 @@
+package FirstAlg
+
+use SniperKernel v*
+use EvtNavigator v* DataModel
+use PhyEvent     v* DataModel
+use DataRegistritionSvc  v*  DataModel
+use BufferMemMgr v* CommonSvc
+use ROOT v* Externals
+
+use SimEventV2          v* DataModel
+
+
+library FirstAlg *.cc
+apply_pattern linker_library library=FirstAlg
+apply_pattern install_python_modules
+
+# in command line:
+# $ export CMTEXTRATAGS=opticks 
+
+macro_append FirstAlg_cppflags " " \
+             opticks " -DWITH_G4OPTICKS "
