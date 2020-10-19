@@ -9,6 +9,9 @@ use ROOT v* Externals
 
 use SimEventV2          v* DataModel
 
+use DataCollSvc v* Analysis
+use JunoTimer v* Utilities
+
 
 library FirstAlg *.cc
 apply_pattern linker_library library=FirstAlg
