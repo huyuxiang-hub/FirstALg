@@ -15,7 +15,7 @@ args = parser.parse_args()
 
 import Sniper
 task = Sniper.Task("task")  # create a Task instance
-task.setEvtMax(100)  # events loop number (3 times)
+task.setEvtMax(1)  # events loop number (3 times)
 task.setLogLevel(2)  # the SniperLog print level
 
 import FirstAlg

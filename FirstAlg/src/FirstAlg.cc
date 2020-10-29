@@ -65,6 +65,9 @@ bool FirstAlg::initialize()
 
  bool FirstAlg::execute()
 {
+     
+   if(m_type==3)
+  {
    fill_array->start();      
    for(int i=0;i<2000000;i++)
      {
@@ -112,91 +115,110 @@ bool FirstAlg::initialize()
    mem_set->stop();
    key="mem_set";
    m_datacollsvc->collectData(key, mem_set->elapsed());
- //   LogDebug << "in the FirstAlg::execute()" << std::endl;
-        
- //  /* ++m_count;
- //   m_value *= m_count;
- //   LogInfo << "Loop " << m_count << m_msg << m_value << std::endl;*/
- //   std::cout<<"m_value="<<m_value<<std::endl;
- //   std::cout<<"m_type="<<m_type<<std::endl;
 
- //   
- //   TFile* f=new TFile("tree1.root","recreate");
- //  // f->SetCompressionLevel(0);
- //   TTree * t1=new TTree("nphotons","nphotons"); 
- //   system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
- //  // t1->SetAutoSave(15000000);  
- //  if(m_type==1)
- //   {
- //   int num=m_value*10000000;  
- //   double *p=new double[num];
- //   t1->Branch("num",&num,"num/I");
- //   t1->Branch("E",p,"E[num]/D",3200000);
- //  // system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
- //   for(int i=0;i<num;i++)
- //    {
- //     *(p+i)=20;
- //    }
- //   system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
- //   }
- //  if(m_type==2)
- //   {
- //      JM::SimEvent* sim_event = new JM::SimEvent(10);
- //      int num=m_value*1000000;
- //      t1->Branch("event_branch","SimEvent",sim_event,320,1);
- //      for(int i=0;i<=num;i++)
- //      {
- //        JM::SimPMTHit* sim_hit = sim_event->addCDHit();  
- //        sim_hit->setPMTID(20);
- //        sim_hit->setHitTime(200);
- //        sim_hit->setLocalTheta(0.6);
- //        sim_hit->setLocalPhi(0.6);
- //        sim_hit->setNPE(1);     
- //      }     
- //      
- //      JM::SimTrack* jm_trk = sim_event->addTrack();
- //        jm_trk->setPDGID(1);
- //        jm_trk->setTrackID(1);
- //        jm_trk->setInitPx(0);
- //        jm_trk->setInitPy(0);
- //        jm_trk->setInitPz(0);
- //        jm_trk->setInitMass(0);
- //        jm_trk->setInitX(0);
- //        jm_trk->setInitY(0);
- //        jm_trk->setInitZ(0);
- //        jm_trk->setInitT(0);
- //      system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+   }
+  
+   LogDebug << "in the FirstAlg::execute()" << std::endl;
+   std::cout<<"m_value="<<m_value<<std::endl;
+   std::cout<<"m_type="<<m_type<<std::endl;
+  
+ 
+  if(m_type==1)
+   {
+   TFile* f=new TFile("tree1.root","recreate");
+   TTree * t1=new TTree("nphotons","nphotons");
+   system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+   int num=m_value*10000000;  
+   double *p=new double[num];
+   t1->Branch("num",&num,"num/I");
+   t1->Branch("E",p,"E[num]/D",32000);
+   for(int i=0;i<num;i++)
+    {
+     *(p+i)=20;
+    }
+   system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+   
+   t1->Fill();
+   system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");  
+   f->Write();
+   system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+   f->Close(); 
+   
+   }
+  if(m_type==2)
+   {
+      TFile* f=new TFile("tree1.root","recreate");
+      TTree * t1=new TTree("nphotons","nphotons");
+      system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
 
- //   }     
- //   
+      JM::SimEvent* sim_event = new JM::SimEvent(10);
+      int num=m_value*1000000;
+      t1->Branch("event_branch","SimEvent",sim_event,32000,1);
+      for(int i=0;i<=num;i++)
+      {
+        JM::SimPMTHit* sim_hit = sim_event->addCDHit();  
+        sim_hit->setPMTID(20);
+        sim_hit->setHitTime(200);
+        sim_hit->setLocalTheta(0.6);
+        sim_hit->setLocalPhi(0.6);
+        sim_hit->setNPE(1);     
+      }     
+      
+      JM::SimTrack* jm_trk = sim_event->addTrack();
+        jm_trk->setPDGID(1);
+        jm_trk->setTrackID(1);
+        jm_trk->setInitPx(0);
+        jm_trk->setInitPy(0);
+        jm_trk->setInitPz(0);
+        jm_trk->setInitMass(0);
+        jm_trk->setInitX(0);
+        jm_trk->setInitY(0);
+        jm_trk->setInitZ(0);
+        jm_trk->setInitT(0);
+      system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
 
- //// system("/junofs/users/huyuxiang/juno/offline/Examples/FirstAlg/src/test.sh");   
- //// sleep(10); 
+      t1->Fill();
+      system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+      f->Write();
+      system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+      f->Close();
 
- ///*  std::cout<<"hello world"<<std::endl;
- // event *evt=new event(); 
- //  std::cout<<"hello world"<<std::endl; 
- // t1.Branch("branch_hit","event",&evt,32000,1);
- // std::cout<<"hello world"<<std::endl;
- //   for(int i=0; i<100;i++)
- //     {
- //       evt->add_hittime(3);
- //     }*/
- // 
- //  // t1->AutoSave();
- //   
- //   t1->Fill();
- // // sleep(20);
- //  // t1->AutoSave();
+   }     
+   if(m_type==4)
+   {
+      TFile *f=new TFile("/afs/ihep.ac.cn/users/h/huyuxiang/junofs/test_RootIO/tree1.root");
+      TTree  *t1=(TTree*)f->Get("nphotons");
+      std::cout<<"hello world";     
+      JM::SimEvent* sim_event = new JM::SimEvent();
+      system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");       
+      TBranch *branch =t1->GetBranch("event_branch");
+       branch->SetAddress(&sim_event);
+       system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+    // std::cout<<"eventID="<<sim_event->getEventID();
+       
 
- //  //delete[]  p;
- //  system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh"); 
- // // sleep(10);
- // f->Write();  
- // //f->Write(0,0,8);
- //  system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
- //  f->Close();
- // // delete[]  p;
+     // const std::vector<JM::SimPMTHit*> m_cd_hit;
+      int nevent=t1->GetEntries();
+      std::cout<<"nevent="<<nevent<<std::endl;
+      for(int i=0;i<nevent;i++)
+        {
+          system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");  
+           t1->GetEntry(i);
+             std::cout<<"eventID="<<sim_event->getEventID();
+          system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");
+          const std::vector<JM::SimPMTHit*> m_cd_hit=sim_event->getCDHitsVec();
+             std::cout<<"m_cd_hitsize="<<m_cd_hit.size()<<std::endl;
+          system("/junofs/users/huyuxiang/test_RootIO/test_mem.sh");     
+         }    
+  
+
+     //std::cout<<"hello world";
+            
+
+    }
+     
+
+   
    return true;
 }
 
