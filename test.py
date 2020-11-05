@@ -7,6 +7,9 @@ parser = argparse.ArgumentParser(description='count to script')
 #parser.add_argument("--name", type=str, default="0", help='input name')
 parser.add_argument("--num", type=int, default=1,help='input total num')
 parser.add_argument("--Type",type=int, default=2,help='input storage type')
+parser.add_argument("--type2-branch-buffer",type=int,default=32000,help='TBD')
+parser.add_argument("--type1-cmp",type=int,default=0,help='TBD')
+parser.add_argument("--type2-cmp",type=int,default=0,help='TBD')
 args = parser.parse_args()
 #print(args.name)
 #print(args.age)
@@ -15,13 +18,16 @@ args = parser.parse_args()
 
 import Sniper
 task = Sniper.Task("task")  # create a Task instance
-task.setEvtMax(1)  # events loop number (3 times)
+task.setEvtMax(4)  # events loop number (3 times)
 task.setLogLevel(2)  # the SniperLog print level
 
 import FirstAlg
 alg = task.createAlg("FirstAlg")  # create a FirstAlg instance
 alg.property("TheValue").set(args.num)
 alg.property("Thetype").set(args.Type)
+alg.property("type2-branch-buffer").set(args.type2_branch_buffer)
+alg.property("type1-compress").set(args.type1_cmp)
+alg.property("type2-compress").set(args.type2_cmp)
 #alg.property("Message").set(" the value is ")
 
  # = root writer ==

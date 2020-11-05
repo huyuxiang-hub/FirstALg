@@ -5,13 +5,6 @@ use EvtNavigator v* DataModel
 use PhyEvent     v* DataModel
 use DataRegistritionSvc  v*  DataModel
 use BufferMemMgr v* CommonSvc
-use ROOT v* Externals
-
-use SimEventV2          v* DataModel
-
-use DataCollSvc v* Analysis
-use JunoTimer v* Utilities
-
 
 library FirstAlg *.cc
 apply_pattern linker_library library=FirstAlg
