@@ -1,15 +1,27 @@
 package FirstAlg
 
+
+use SniperRelease   v*
 use SniperKernel v*
 use EvtNavigator v* DataModel
 use PhyEvent     v* DataModel
 use DataRegistritionSvc  v*  DataModel
 use BufferMemMgr v* CommonSvc
+use ROOT v* Externals
+use Geant4 v* Externals
+
+use SimEventV2          v* DataModel
+
+use DataCollSvc v* Analysis
+use JunoTimer v* Utilities
+
 
 library FirstAlg *.cc
 apply_pattern linker_library library=FirstAlg
 apply_pattern install_python_modules
 
+include_dirs "$(DETSIMROOT)"
+include_dirs "$(FIRSTALGROOT)/include"
 # in command line:
 # $ export CMTEXTRATAGS=opticks 
 
