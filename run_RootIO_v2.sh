@@ -2,6 +2,29 @@
 
 test_type=$1;
 echo "test_type=" $test_type
+
+if [ $test_type -eq 8 ]
+then
+     cat >split_io_data.txt<<EOF
+num_of_hit             average_time(ms)
+EOF
+     for (( i=1 ; i <=2; i++ ))
+     do
+        echo $i
+        #python test.py --num $i --Type ${test_type} >> type8.log.txt
+        python test.py --num $i --Type ${test_type}
+     done
+    
+     root draw_type8.C
+  
+
+fi
+
+
+
+if [ $test_type -eq 1 ] || [ $test_type -eq 2 ] || [ $test_type -eq 4 ]
+then
+
 if [ -f test_mem.sh ]
 then 
      rm -rf test_mem.sh
@@ -20,8 +43,11 @@ fi
 para_2=(" ")
 para_val_2=(" ")
 
-para_1=(" " "--type1-cmp")
-para_val_1=(" " 1)
+#para_1=(" " "--type1-cmp")
+#para_val_1=(" " 1)
+
+para_1=(" " )
+para_val_1=(" ")
 
 para_4=(" " )
 para_val_4=(" ")
@@ -73,7 +99,7 @@ EOF
 
 
  
-          for i in {1..15}
+          for i in {1..6}
           do
              echo $i
              echo  -n " " $i >> TYPE-${test_type}-${k}
@@ -97,30 +123,6 @@ fi
 
 root -l 'draw_mem.C("./gra-info-main-'${test_type}'" , "./gra-info-sub-'${test_type}'")'
 
-
-
-:<<BlOCK
-
-if [ -f output-type.${test_type} ]
-then
-   rm -rf output-type.${test_type}
- #  touch log.mem.usage
 fi
 
 
-for i in {1..2}
-
-do
-   echo $i
-   echo  -n  $i >> output-type.${test_type}
-   /usr/bin/time -v python test.py --num $i --Type ${test_type}  >& mem.txt
-   # /usr/bin/time -v root RootIO_test.C  >& mem.txt
-    grep Maximum mem.txt | awk -F ": " '{print $2}' >> output-type.${test_type}
-done  
-
-awk '{print $1, ($4-$2)/1024}' output-type.${test_type} >& output-type.${test_type}.tmp
-
-
-root -l -q "draw_mem.C(${test_type})"
-
-BlOCK

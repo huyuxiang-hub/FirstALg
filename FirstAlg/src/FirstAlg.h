@@ -34,6 +34,9 @@ class FirstAlg : public AlgBase
         int          m_2_branch_buffer;        
         int        m_1_compress_flag;
         int        m_2_compress_flag;        
+        int        type5_read_time;
+        int        type7_hit_num;        
+
 
         int       loop_count;
 
@@ -52,7 +55,11 @@ class FirstAlg : public AlgBase
  
        std::vector<JM::SimEvent*> sim_evt;
        std::vector<TString>       file_name; 
-  
+       
+       std::string iotaskname;
+       Task*  iotask; 
+
+ 
 };
 
 #endif
