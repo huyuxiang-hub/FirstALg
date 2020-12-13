@@ -3,6 +3,48 @@
 test_type=$1;
 echo "test_type=" $test_type
 
+
+
+if [ $test_type -eq 5 ]
+then
+ Read_time=3
+ 
+ base=100000
+
+
+ cat > important.txt <<EOF
+EOF
+
+ cat > mem.txt <<EOF
+EOF
+
+
+ for (( i=1; i<=2; i++ ))
+ do
+     hit_num=$[ ${i}*${base} ]
+     python test.py --Type 7 --type7-hit-num $hit_num
+     for(( k=1; k<=$Read_time; k++))
+     do
+       echo -n $hit_num "  " >> important.txt
+       echo -n $k "  "       >> important.txt
+       /usr/bin/time -v python test.py --Type 5 --type5-read-time $k >& mem.txt
+       echo  $( grep Maximum mem.txt | awk -F ": " '{print $2}') " " >> important.txt
+
+     done
+
+
+ done
+  
+  root -l draw_mem_v2.c
+
+fi
+
+
+
+
+
+
+
 if [ $test_type -eq 8 ]
 then
      cat >split_io_data.txt<<EOF
